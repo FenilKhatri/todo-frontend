@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
+    // In production, "/api" is proxied to the backend by vercel.json so the auth cookie stays first-party.
+    baseURL: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "/api" : "http://localhost:3000/api"),
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",

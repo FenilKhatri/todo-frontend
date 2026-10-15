@@ -25,9 +25,9 @@ function TaskCard({ task, group, readOnly, onToggle, onEdit, onDelete }) {
           />
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold break-words">{task.title}</h3>
+          <h3 className="text-sm font-semibold wrap-break-word">{task.title}</h3>
           {task.description && (
-            <p className="mt-1 text-xs leading-relaxed text-slate-500 break-words">{task.description}</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-500 wrap-break-word">{task.description}</p>
           )}
           <div className="mt-2.5">
             <PriorityBadge priority={task.priority} />
