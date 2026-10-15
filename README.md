@@ -4,7 +4,7 @@
 
 Taskora is a task manager where you organise tasks into boards, track what's pending, overdue and done, and share boards with teammates as view-only.
 
-This repository contains the React web application. It communicates with the [Taskora backend](https://github.com/FenilKhatri/upmetrics-todo-backend) through a REST API.
+This repository contains the React web application. It communicates with the [Taskora backend](https://github.com/FenilKhatri/todo-backend) through a REST API.
 
 ## Features
 
@@ -47,13 +47,13 @@ This repository contains the React web application. It communicates with the [Ta
 - Node.js 20.19+ or 22.12+
 - The Taskora backend running locally
 
-Refer to the [backend repository](https://github.com/FenilKhatri/upmetrics-todo-backend) for backend setup instructions.
+Refer to the [backend repository](https://github.com/FenilKhatri/todo-backend) for backend setup instructions.
 
 ### Installation
 
 ```bash
-git clone https://github.com/FenilKhatri/upmetrics-todo-frontend.git
-cd upmetrics-todo-frontend
+git clone https://github.com/FenilKhatri/todo-frontend.git
+cd todo-frontend
 npm install
 ```
 
@@ -140,4 +140,4 @@ src/
 
 ## Related
 
-- [Taskora Backend API](https://github.com/FenilKhatri/upmetrics-todo-backend)
+- [Taskora Backend API](https://github.com/FenilKhatri/todo-backend)
