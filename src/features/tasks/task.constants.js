@@ -54,7 +54,7 @@ export const DEFAULT_FILTERS = {
   board: "all",
   priority: "all",
   due: "all",
-  sortBy: "dueDate",
+  sortBy: "manual",
 };
 
 export const DAY_MS = 86400000;

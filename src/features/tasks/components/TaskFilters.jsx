@@ -31,6 +31,7 @@ function TaskFilters({ filters, onChange, boards, view, onViewChange }) {
         <option value="none">No due date</option>
       </SelectField>
       <SelectField value={filters.sortBy} onChange={set("sortBy")} className="w-[calc(50%-6px)] sm:w-40">
+        <option value="manual">Custom order</option>
         <option value="dueDate">Due date</option>
         <option value="priority">Priority</option>
         <option value="newest">Newest</option>

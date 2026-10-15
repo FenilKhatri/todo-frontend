@@ -16,7 +16,7 @@ function ProgressCard({ groups }) {
 
   return (
     <Card title="Progress">
-      <div className="flex items-center gap-6 p-5">
+      <div className="flex flex-wrap items-center justify-center gap-6 p-5">
         <ProgressRing percent={percent} />
         <ul className="space-y-3 text-sm">
           {legend.map((item) => (

@@ -4,12 +4,13 @@ import Menu from "../../../components/Menu";
 import { boardColor, boardLabel, formatDate } from "../task.utils";
 import { PriorityBadge, StatusBadge } from "./Badges";
 
-function TaskRow({ task, group, onToggle, onEdit, onDelete }) {
+function TaskRow({ task, group, onToggle, onEdit, onDelete, dragProps }) {
   const completed = group === "completed";
   const overdue = group === "overdue";
 
   return (
     <div
+      {...dragProps}
       onClick={() => onToggle(task)}
       title={completed ? "Click to mark as pending" : "Click to mark as completed"}
       className="flex cursor-pointer items-start gap-4 border-b border-slate-100 px-4 py-3 transition-colors last:border-b-0 hover:bg-slate-50/80 md:items-center"

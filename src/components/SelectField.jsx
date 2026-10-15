@@ -12,7 +12,7 @@ function SelectField({ value, onChange, children, prefix, className = "" }) {
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className={`h-10 w-full cursor-pointer appearance-none rounded-lg border border-slate-200 bg-white pr-9 text-sm text-slate-700 outline-none transition focus:border-brand-500 focus:ring-3 focus:ring-brand-100 ${
+        className={`h-10 w-full cursor-pointer appearance-none rounded-lg border border-slate-200 bg-white pr-8 text-xs text-slate-700 sm:text-sm outline-none transition focus:border-brand-500 focus:ring-3 focus:ring-brand-100 ${
           prefix ? "pl-23 font-medium text-ink" : "pl-3"
         }`}
       >

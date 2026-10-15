@@ -4,14 +4,15 @@ import { boardLabel, cardAccent, formatDate } from "../task.utils";
 import { PriorityBadge } from "./Badges";
 import TaskCheckbox from "./TaskCheckbox";
 
-function TaskCard({ task, group, readOnly, onToggle, onEdit, onDelete }) {
+function TaskCard({ task, group, readOnly, onToggle, onEdit, onDelete, dragProps }) {
   const completed = group === "completed";
 
   return (
     <article
+      {...dragProps}
       onClick={readOnly ? undefined : () => onToggle(task)}
       title={readOnly ? undefined : completed ? "Click to mark as pending" : "Click to mark as completed"}
-      className={`rounded-lg border border-l-3 border-slate-100 bg-white p-4 shadow-xs transition ${cardAccent(task, group)} ${
+      className={`rounded-lg border border-l-3 border-slate-100 bg-white p-4 shadow-xs transition-shadow ${cardAccent(task, group)} ${
         readOnly ? "" : "cursor-pointer hover:shadow-md"
       }`}
     >

@@ -31,7 +31,7 @@ function ChangeCredential() {
         <LuArrowLeft size={16} /> Back to profile
       </Link>
 
-      <div className="mt-4 grid gap-8 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-xs sm:p-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="mt-4 grid grid-cols-1 gap-8 rounded-2xl border border-slate-200/70 bg-white p-6 shadow-xs sm:p-8 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0">
           <div className="flex gap-4">
             <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">

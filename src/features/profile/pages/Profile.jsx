@@ -36,7 +36,7 @@ function Profile() {
   return (
     <div>
       <PageHeader title="Profile" subtitle="Manage your personal information and account security." />
-      <div className="mt-6 grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
         <ProfileSummaryCard profile={profile} onUpdated={handleUpdated} />
         <div className="space-y-6">
           <PersonalInfoForm profile={profile} onUpdated={handleUpdated} />

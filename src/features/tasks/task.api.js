@@ -26,6 +26,11 @@ export const saveTask = async (task, { status, ...values }) => {
 export const toggleTask = (task) =>
   updateTask(task._id, { status: task.status === "completed" ? "todo" : "completed" });
 
+export const reorderTasks = async (ids) => {
+  const response = await api.patch("/tasks/reorder", { ids });
+  return response.data;
+};
+
 export const deleteTask = async (taskId) => {
   const response = await api.delete(`/tasks/${taskId}`);
   return response.data;
