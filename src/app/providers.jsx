@@ -1,5 +1,7 @@
-function providers() {
-  return <div>providers</div>;
+import { AuthProvider } from "../features/auth/AuthContext";
+
+function Providers({ children }) {
+  return <AuthProvider>{children}</AuthProvider>;
 }
 
-export default providers;
+export default Providers;
