@@ -72,7 +72,7 @@ function Home() {
         <TaskStats groups={groups} showTotal />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <UpNextCard
           tasks={upNext}
           onToggle={toggle}

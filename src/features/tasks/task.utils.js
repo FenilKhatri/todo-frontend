@@ -31,12 +31,23 @@ export const toDateInput = (value) => {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 };
 
-// Date `days` from today as YYYY-MM-DD (the date input's format).
 export const addDays = (days) => {
   const date = new Date();
   date.setDate(date.getDate() + days);
   return toDateInput(date);
 };
+
+export const moveUpdates = (task, group) => {
+  if (group === "completed") return { status: "completed" };
+
+  const status = task.status === "completed" ? "todo" : task.status;
+  const isOverdue = getTaskGroup({ ...task, status }) === "overdue";
+  if (group === "overdue" && !isOverdue) return { status, dueDate: addDays(-1) };
+  if (group === "pending" && isOverdue) return { status, dueDate: addDays(0) };
+  return { status };
+};
+
+export const endOfDay = (value) => new Date(`${value}T23:59:59.999`).toISOString();
 
 export const boardLabel = (task) => task.board?.name || "General";
 

@@ -1,4 +1,5 @@
 import TaskRow from "./TaskRow";
+import { SortableTask, TaskDndContext, TaskDropZone } from "./TaskDnd";
 import { GROUPS, GROUP_META } from "../task.constants";
 
 function TaskGroupHeading({ group, count }) {
@@ -12,36 +13,44 @@ function TaskGroupHeading({ group, count }) {
   );
 }
 
-function TaskListView({ groups, onToggle, onEdit, onDelete }) {
+function TaskListView({ groups, onToggle, onEdit, onDelete, onMove }) {
   return (
-    <div className="space-y-6 p-4">
-      {GROUPS.map((group) => {
-        const list = groups[group];
-        return (
-          <section key={group}>
-            <TaskGroupHeading group={group} count={list.length} />
-            {list.length ? (
-              <div className="rounded-lg border border-slate-200/70">
-                {list.map((task) => (
-                  <TaskRow
-                    key={task._id}
-                    task={task}
-                    group={group}
-                    onToggle={onToggle}
-                    onEdit={onEdit}
-                    onDelete={onDelete}
-                  />
-                ))}
-              </div>
-            ) : (
-              <p className="rounded-lg border border-dashed border-slate-200 py-6 text-center text-sm text-slate-400">
-                No {GROUP_META[group].label.toLowerCase()} tasks
-              </p>
-            )}
-          </section>
-        );
-      })}
-    </div>
+    <TaskDndContext groups={groups} onMove={onMove} overlay={TaskRow}>
+      {(current) => (
+        <div className="space-y-6 p-4">
+          {GROUPS.map((group) => {
+            const list = current[group];
+            return (
+              <section key={group}>
+                <TaskGroupHeading group={group} count={list.length} />
+                <TaskDropZone group={group} tasks={list}>
+                  {list.length ? (
+                    <div className="rounded-lg border border-slate-200/70">
+                      {list.map((task) => (
+                        <SortableTask
+                          key={task._id}
+                          as={TaskRow}
+                          disabled={!onMove}
+                          task={task}
+                          group={group}
+                          onToggle={onToggle}
+                          onEdit={onEdit}
+                          onDelete={onDelete}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="rounded-lg border border-dashed border-slate-200 py-6 text-center text-sm text-slate-400">
+                      No {GROUP_META[group].label.toLowerCase()} tasks
+                    </p>
+                  )}
+                </TaskDropZone>
+              </section>
+            );
+          })}
+        </div>
+      )}
+    </TaskDndContext>
   );
 }
 

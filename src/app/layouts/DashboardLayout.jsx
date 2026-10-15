@@ -13,22 +13,28 @@ function DashboardLayout() {
         <Sidebar />
       </aside>
 
-      {mobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="absolute inset-0 bg-slate-900/40" onClick={closeMobile} />
-          <aside className="relative h-full w-64 bg-white shadow-xl">
-            <button
-              type="button"
-              onClick={closeMobile}
-              className="absolute top-4 right-3 cursor-pointer rounded-md p-1 text-slate-400 hover:bg-slate-100"
-              aria-label="Close menu"
-            >
-              <FiX size={18} />
-            </button>
-            <Sidebar onNavigate={closeMobile} />
-          </aside>
-        </div>
-      )}
+      <div className={`fixed inset-0 z-40 lg:hidden ${mobileOpen ? "" : "pointer-events-none"}`} aria-hidden={!mobileOpen}>
+        <div
+          className={`absolute inset-0 bg-slate-900/40 transition-opacity duration-300 ${mobileOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={closeMobile}
+        />
+        <aside
+          inert={!mobileOpen}
+          className={`relative h-full w-64 bg-white transition duration-300 ease-out ${
+            mobileOpen ? "translate-x-0 shadow-xl" : "-translate-x-full"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={closeMobile}
+            className="absolute top-4 right-3 cursor-pointer rounded-md p-1 text-slate-400 hover:bg-slate-100"
+            aria-label="Close menu"
+          >
+            <FiX size={18} />
+          </button>
+          <Sidebar onNavigate={closeMobile} />
+        </aside>
+      </div>
 
       <div className="lg:pl-60">
         <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-slate-100 bg-white px-4 py-3 lg:hidden">

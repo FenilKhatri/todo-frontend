@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getErrorMessage } from "../../../shared/lib/axios";
 import { getBoards } from "../../boards/board.api";
-import { deleteTask, getTasks, saveTask, toggleTask } from "../task.api";
+import { deleteTask, getTasks, reorderTasks, saveTask, toggleTask, updateTask } from "../task.api";
+import { endOfDay, getTaskGroup, moveUpdates } from "../task.utils";
 
 export default function useTaskList() {
   const [tasks, setTasks] = useState([]);
@@ -44,6 +45,29 @@ export default function useTaskList() {
 
   const save = useCallback(async (task, values) => upsert(await saveTask(task, values)), [upsert]);
 
+  const move = useCallback(
+    async (task, group, ids) => {
+      const updates = getTaskGroup(task) === group ? null : moveUpdates(task, group);
+      const local = updates?.dueDate ? { ...updates, dueDate: endOfDay(updates.dueDate) } : updates;
+      const previous = tasks;
+      setTasks((list) =>
+        list.map((item) => ({
+          ...item,
+          order: ids.indexOf(item._id),
+          ...(item._id === task._id && local),
+        })),
+      );
+      try {
+        const [, saved] = await Promise.all([reorderTasks(ids), updates && updateTask(task._id, updates)]);
+        if (saved) upsert({ ...saved, order: ids.indexOf(saved._id) });
+      } catch (err) {
+        setTasks(previous);
+        setError(getErrorMessage(err, "Unable to move task"));
+      }
+    },
+    [tasks, upsert],
+  );
+
   const remove = useCallback(async (task) => {
     try {
       await deleteTask(task._id);
@@ -57,5 +81,5 @@ export default function useTaskList() {
 
   const ownedBoards = useMemo(() => boards.filter((board) => board.canEdit), [boards]);
 
-  return { tasks, boards, ownedBoards, loading, error, setError, toggle, save, remove };
+  return { tasks, boards, ownedBoards, loading, error, setError, toggle, save, move, remove };
 }

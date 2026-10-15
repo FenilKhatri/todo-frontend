@@ -13,10 +13,10 @@ import TaskDialogs from "../components/TaskDialogs";
 import TaskFilters from "../components/TaskFilters";
 import TaskListView from "../components/TaskListView";
 import TaskStats from "../components/TaskStats";
-import { DEFAULT_FILTERS } from "../task.constants";
+import { DEFAULT_FILTERS, GROUPS } from "../task.constants";
 
 function Tasks() {
-  const { tasks, boards, ownedBoards, loading, error, setError, toggle, save, remove } = useTaskList();
+  const { tasks, boards, ownedBoards, loading, error, setError, toggle, save, move, remove } = useTaskList();
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [view, setView] = useState("list");
   const [form, setForm] = useState(null);
@@ -33,9 +33,26 @@ function Tasks() {
     });
   const openEdit = (task) => setForm({ key: Date.now(), task });
 
+  // Visible tasks take their new positions; tasks hidden by filters keep their order after them.
+  const handleMove = (task, group, nextGroups) => {
+    const visibleIds = GROUPS.flatMap((g) => nextGroups[g]).map((t) => t._id);
+    const hiddenIds = [...tasks]
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+      .map((t) => t._id)
+      .filter((id) => !visibleIds.includes(id));
+    setFilters({ ...filters, sortBy: "manual" });
+    move(task, group, [...visibleIds, ...hiddenIds]);
+  };
+
   if (loading) return <Loader label="Loading tasks..." />;
 
-  const viewProps = { groups: visibleGroups, onToggle: toggle, onEdit: openEdit, onDelete: setDeleting };
+  const viewProps = {
+    groups: visibleGroups,
+    onToggle: toggle,
+    onEdit: openEdit,
+    onDelete: setDeleting,
+    onMove: handleMove,
+  };
 
   return (
     <div>

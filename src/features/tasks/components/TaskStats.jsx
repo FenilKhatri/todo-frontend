@@ -20,7 +20,7 @@ function TaskStats({ groups, showTotal = false }) {
   const stats = showTotal ? TASK_STATS : TASK_STATS.filter((stat) => stat.key !== "total");
 
   return (
-    <div className={`grid gap-4 ${showTotal ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"}`}>
+    <div className={`grid grid-cols-1 gap-4 ${showTotal ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"}`}>
       {stats.map(({ key, label, hint, iconClass, ...icon }) => (
         <StatCard
           key={key}

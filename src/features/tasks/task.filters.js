@@ -21,6 +21,7 @@ export const byDueDate = (a, b) =>
   (a.dueDate ? new Date(a.dueDate) : Infinity) - (b.dueDate ? new Date(b.dueDate) : Infinity);
 
 const SORTERS = {
+  manual: (a, b) => (a.order ?? 0) - (b.order ?? 0),
   dueDate: byDueDate,
   priority: (a, b) => PRIORITY_META[a.priority].rank - PRIORITY_META[b.priority].rank,
   newest: (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
